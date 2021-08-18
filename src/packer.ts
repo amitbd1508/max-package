@@ -8,19 +8,18 @@ import { BranchAndBoundStrategy } from "./strategies/branch-and-bound.strategy";
 export class Packer {
     pack(inputFile: string): string {
         const input = fs.readFileSync(inputFile, 'utf8');
-        const formattedData = this.formatInput(input);
+        const formattedData = this.parseInputData(input);
 
         const result: any[][] = [];
         formattedData.map(data => {
             result.push(new MaxPacker(new BranchAndBoundStrategy()).getMaxPackage(data.weight, data.packages));
         });
 
-
         return this.getFormattedOutput(result);
 
     }
 
-    private formatInput(input: string): Data[] {
+    private parseInputData(input: string): Data[] {
         const data: Data[] = [];
 
         const lines = input.split('\n');
@@ -46,13 +45,12 @@ export class Packer {
                 let groups = item.match(PACKAGE_DATA_FORMAT_REGX)?.groups;
 
                 if (groups) {
-                    packageItems.push(new PackageItem(+groups.COST, +groups.WEIGHT, +groups.INDEX));
+                    packageItems.push(new PackageItem(+groups.INDEX, +groups.COST, +groups.WEIGHT));
                 }
             })
             data.push({weight: weight, packages: packageItems});
 
         });
-
         return data;
 
     }

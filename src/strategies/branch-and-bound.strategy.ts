@@ -23,12 +23,14 @@ export class BranchAndBoundStrategy implements Strategy{
         let node = new TreeNode(-1, 0, 0);
         node.bound = this.getUpperBound(node, maxCapacity, packageItems);
 
+        priorityQueue.push(node);
+
         while(priorityQueue.length !== 0) {
             node = priorityQueue.pop();
 
             if(node.bound > maxProfit) {
 
-                if(node.level === totalPackage - 1) {
+                if(node.level == totalPackage - 1) {
                     continue;
                 }
 
@@ -60,7 +62,6 @@ export class BranchAndBoundStrategy implements Strategy{
                 }
             }
         }
-
         return bestItems
     }
 
