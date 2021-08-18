@@ -1,5 +1,4 @@
 import * as fs from 'fs';
-import { ApiError } from "./util/error";
 import { PackageItem } from "./models/package-item";
 import { PACKAGE_DATA_FORMAT_REGX } from "./util/constant";
 import { MaxPacker } from "./max-packer";
@@ -29,12 +28,12 @@ export class Packer {
             const lineData = line.split(':');
 
             if (lineData.length !== 2) {
-                throw new ApiError('Invalid input!');
+                // throw new ApiError('Invalid input!');
             }
 
             const weight = parseInt(lineData[0]);
             if (!weight) {
-                throw new ApiError('Invalid weight!');
+                // throw new ApiError('Invalid weight!');
             }
 
             const itemData = lineData[1];
