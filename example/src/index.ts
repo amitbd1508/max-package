@@ -1,3 +1,14 @@
-import { Packer } from "../../src/packer";
+import { Packer } from '@amitbd1508/max-package';
 
-console.log(new Packer().pack('/Users/amitghosh/Downloads/skeleton_javascript/resources/Packagetest.txt'))
+class SampleExample {
+    static run() {
+        const pack = new Packer();
+        const fileData = pack.readFile(
+            '/Users/amitghosh/Downloads/skeleton_javascript/resources/Packagetest.txt'
+        );
+        const result = pack.getResult(fileData);
+        console.log(`Result: ${result}`);
+    }
+}
+
+SampleExample.run();
