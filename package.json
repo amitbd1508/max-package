@@ -1,8 +1,8 @@
 {
   "version": "0.1.0",
   "license": "MIT",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "main": "dist/packer.js",
+  "typings": "dist/packer.d.ts",
   "files": [
     "dist",
     "src"
@@ -51,5 +51,8 @@
     "tsdx": "^0.14.1",
     "tslib": "^2.3.1",
     "typescript": "^4.3.5"
+  },
+  "dependencies": {
+    "priorityqueue": "^1.0.0"
   }
 }
