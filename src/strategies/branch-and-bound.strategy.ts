@@ -1,6 +1,6 @@
-import { Strategy } from "../interface/strategy";
-import { PackageItem } from "../models/package-item";
-import { TreeNode } from "../models/tree-node";
+import { Strategy } from '../interface/strategy';
+import { PackageItem } from '../models/package-item';
+import { TreeNode } from '../models/tree-node';
 import PriorityQueue from "priorityqueue";
 
 export class BranchAndBoundStrategy implements Strategy{

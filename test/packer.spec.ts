@@ -1,3 +1,4 @@
+/*
 import { Packer } from "../src/packer";
 
 describe('packer', () => {
@@ -5,3 +6,4 @@ describe('packer', () => {
         expect(new Packer().pack('/Users/amitghosh/Downloads/skeleton_javascript/resources/PackageTest.txt')).toEqual(133);
     });
 });
+*/
