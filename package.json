@@ -12,10 +12,10 @@
   },
   "scripts": {
     "start": "tsdx watch",
-    "build": "tsdx build --format cjs --name index",
+    "build": "NODE_ENV=production tsdx build --format cjs --name index",
     "test": "tsdx test",
     "lint": "tsdx lint",
-    "prepare": "tsdx build --format cjs --name index",
+    "prepare": "NODE_ENV=production tsdx build --format cjs --name index",
     "size": "size-limit",
     "analyze": "size-limit --why"
   },
