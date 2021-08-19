@@ -35,7 +35,4 @@ In this code base i only implemented the BranchAndBound strategy, but in future 
 
 ## Test 
 To run tests, use `npm run test` 
-  
-
-## Publishing to NPM
 
