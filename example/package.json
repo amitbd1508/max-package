@@ -16,7 +16,6 @@
   },
   "alias": {},
   "dependencies": {
-    "@amitbd1508/max-package": "^0.4.0",
     "@types/node": "^16.6.1"
   }
 }

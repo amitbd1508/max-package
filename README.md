@@ -33,6 +33,4 @@ In this code base i only implemented the BranchAndBound strategy, but in future 
 - In `example/src/index.ts` file please provide a input file location 
 - Run example project by typing `npm start` 
 
-## Test 
-To run tests, use `npm run test` 
 

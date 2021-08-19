@@ -1,10 +1,10 @@
-import { Packer } from "@amitbd1508/max-package";
+import { Packer } from "../../src/packer";
 
 class SampleExample {
     static run() {
         const packer = new Packer();
         const fileData = packer.pack(
-            '/Users/amitghosh/Downloads/skeleton_javascript/resources/Packagetest.txt'
+            'Enter file path'
         );
 
         console.log(fileData)

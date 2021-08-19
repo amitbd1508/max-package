@@ -23,7 +23,7 @@ export class BranchAndBoundStrategy implements Strategy {
     const priorityQueue = new PriorityQueue({ comparator });
 
     let node = new TreeNode(-1, 0, 0);
-    node.bound = this.getUpperBound(node, maxCapacity, packageItems);
+    node.bound = this.getBound(node, maxCapacity, packageItems);
 
     priorityQueue.push(node);
 
@@ -52,7 +52,7 @@ export class BranchAndBoundStrategy implements Strategy {
           bestItems = [...leftNode.items];
         }
 
-        leftNode.bound = this.getUpperBound(
+        leftNode.bound = this.getBound(
           leftNode,
           maxCapacity,
           packageItems
@@ -67,7 +67,7 @@ export class BranchAndBoundStrategy implements Strategy {
           node.weight,
           node.profit
         );
-        rightNode.bound = this.getUpperBound(
+        rightNode.bound = this.getBound(
           rightNode,
           maxCapacity,
           packageItems
@@ -82,11 +82,11 @@ export class BranchAndBoundStrategy implements Strategy {
     return bestItems;
   }
 
-  private getUpperBound(
+  private getBound(
     node: TreeNode,
     capacity: number,
     packageItems: PackageItem[]
-  ) {
+  ): number {
     const totalPackage = packageItems.length;
 
     if (node.weight > capacity) {

@@ -3,26 +3,33 @@ import { PackageItem } from './models/package-item';
 import { PACKAGE_DATA_FORMAT_REGX } from './util/constant';
 import { MaxPacker } from './max-packer';
 import { BranchAndBoundStrategy } from './strategies/branch-and-bound.strategy';
+import { ApiError } from "./util/error";
+import { Data } from "./interface/data";
 
 export class Packer {
   pack(inputFile: string): string {
-    const input = fs.readFileSync(inputFile, 'utf8');
-    const formattedData = this.parseInputData(input);
+    const fileContent = fs.readFileSync(inputFile, 'utf8');
+    const parsedData = this.parseFileContent(fileContent);
 
-    const result: any[][] = [];
-    formattedData.map(data => {
-      result.push(
-        new MaxPacker(new BranchAndBoundStrategy()).getMaxPackage(
-          data.weight,
-          data.packages
-        )
-      );
-    });
-
-    return this.getFormattedOutput(result);
+    return this.getResult(parsedData);
   }
 
-  private parseInputData(input: string): Data[] {
+  private getResult(parsedData: Data[]) {
+    let result = '';
+    parsedData.map(data => {
+      const bestItems = new MaxPacker(new BranchAndBoundStrategy()).getMaxPackage(
+          data.maxCapacity,
+          data.packages
+      )
+
+      result += this.getFormattedResult(bestItems);
+
+    });
+
+    return result;
+  }
+
+  private parseFileContent(input: string): Data[] {
     const data: Data[] = [];
 
     const lines = input.split('\n');
@@ -32,12 +39,12 @@ export class Packer {
       const lineData = line.split(':');
 
       if (lineData.length !== 2) {
-        // throw new ApiError('Invalid input!');
+        throw new ApiError('Invalid input!');
       }
 
-      const weight = parseInt(lineData[0]);
-      if (!weight) {
-        // throw new ApiError('Invalid weight!');
+      const maxCapacity = parseInt(lineData[0]);
+      if (!maxCapacity) {
+        throw new ApiError('Invalid weight!');
       }
 
       const itemData = lineData[1];
@@ -53,28 +60,20 @@ export class Packer {
           );
         }
       });
-      data.push({ weight: weight, packages: packageItems });
+      data.push({ maxCapacity: maxCapacity, packages: packageItems });
     });
     return data;
   }
 
-  private getFormattedOutput(result: any[][]): string {
-    let output = '';
-    for (let i = 0; i < result.length; i++) {
-      if (result[i].length == 0) {
-        output += '-\n';
-      } else {
-        for (let j = 0; j < result[i].length; j++) {
-          output += `${result[i][j].index} `;
-        }
-        output += `\n`;
-      }
+  private getFormattedResult(bestItems: PackageItem[]): string {
+    if(bestItems.length == 0) {
+      return '-\n';
     }
-    return output;
-  }
-}
+    let result = '';
 
-interface Data {
-  packages: PackageItem[];
-  weight: number;
+    bestItems.map(item => result += `${item.index} `);
+    result += '\n';
+
+    return result;
+  }
 }
